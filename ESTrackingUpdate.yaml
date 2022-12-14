@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  title: Easyship Tracking
+  description: >-
+    Easyship provides a powerful API for you to add hassle free worldwide
+    shipping options to your website and end to end shipping functionality to
+    your warehouse, ERP or platform.
+  version: 1.0.0
+servers:
+  - url: https://{{host}}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Tracking
+    description: Folder for track
+paths:
+  /2022-10/shipments/tracking_updates:
+    post:
+      tags:
+        - Tracking
+      summary: tracking_updates
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n     \"easyship_shipment_id\": \"{{ShipmentID}}\",\n    
+                \"tracking_number\": \"{{tracking_number}}\",\n     \"events\":
+                [\n        {\n               \"primary_status\":
+                \"InTransit\"\n        }\n     ]\n}"
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer {{Token}}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
